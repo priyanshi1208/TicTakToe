@@ -50,7 +50,8 @@ public class TicTacToe {
         indexlist.forEach(System.out::println);
         String status;
         if(indexlist.contains(index)) {
-            status = (move(index) == 0) ? "Index is not vacant choose again" : "Index is vacant";
+            status = (move(index) == 0) ? "Index is not vacant choose again" : "Moved To vacant Index";
+            System.out.println(status);
         }
         else
             System.out.println("Invalid index");
@@ -59,7 +60,7 @@ public class TicTacToe {
 
         int currentIndex;
         if(currentBoard[index]==' ')
-            currentIndex = index;
+            currentIndex = 1;
         else
             currentIndex=0;
         return currentIndex;
