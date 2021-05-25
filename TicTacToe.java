@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -8,13 +9,15 @@ public class TicTacToe {
         Scanner scanner = new Scanner(System.in);
         TicTacToe ticTacToe=new TicTacToe();
         ticTacToe.board();
-        System.out.println("choose your letter between X and O");
+        System.out.println("Choose your letter between X and O");
         char letter = scanner.next().charAt(0);
-        System.out.println("Computer's letter:"+ticTacToe.computerLetter(letter)+"Your letter:"+letter);
-        ticTacToe.showBoard();
+        char computerLetter=ticTacToe.computerLetter(letter);
+        System.out.println("Computer's letter:"+computerLetter+"Your letter:"+letter);
+        System.out.println("Toss who will play first");
+        ticTacToe.turn();
         System.out.println("Enter a index to navigate in");
         int index=scanner.nextInt();
-        ticTacToe.availableIndex(index);
+        ticTacToe.availableIndex(index,letter);
 
     }
     //UC1
@@ -42,16 +45,19 @@ public class TicTacToe {
     }
     //UC4
 
-    public void availableIndex(int index){
+    public void availableIndex(int index,char letter){
         ArrayList<Integer> indexlist=new ArrayList<>();
         for(int i=1;i<=board().length;i++){
             indexlist.add(i);
         }
         indexlist.forEach(System.out::println);
-        String status;
+        int status;
         if(indexlist.contains(index)) {
-            status = (move(index) == 0) ? "Index is not vacant choose again" : "Moved To vacant Index";
-            System.out.println(status);
+            if(move(index)==1)
+                currentBoard[index]=placeMove(letter);
+            else
+                System.out.println("Index not Empty choose another");
+
         }
         else
             System.out.println("Invalid index");
@@ -64,5 +70,15 @@ public class TicTacToe {
         else
             currentIndex=0;
         return currentIndex;
+    }
+    public char placeMove(char playerletter,char computerletter){
+        if(turn()==1)
+            return playerletter;
+        else
+            return computerletter;
+    }
+    public int turn(){
+      return new Random().nextInt(2);
+     
     }
 }
