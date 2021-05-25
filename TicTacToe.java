@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -11,10 +12,13 @@ public class TicTacToe {
         char letter = scanner.next().charAt(0);
         System.out.println("Computer's letter:"+ticTacToe.computerLetter(letter)+"Your letter:"+letter);
         ticTacToe.showBoard();
+        System.out.println("Enter a index to navigate in");
+        int index=scanner.nextInt();
+        ticTacToe.availableIndex(index);
 
     }
     //UC1
-   public void board(){
+   public char[] board(){
         char[] currentBoard=new char[10];
        System.out.println(currentBoard.length);
         for(int i=1;i<currentBoard.length;i++)
@@ -23,6 +27,7 @@ public class TicTacToe {
         }
         this.currentBoard=currentBoard;
        System.out.println("New Board Created");
+       return currentBoard;
     }
     //UC2
     public char computerLetter(char letter) {
@@ -34,5 +39,29 @@ public class TicTacToe {
         for(int i=1;i<board.length;i++){
             System.out.println("Position "+"i:"+board[i]);
         }
+    }
+    //UC4
+
+    public void availableIndex(int index){
+        ArrayList<Integer> indexlist=new ArrayList<>();
+        for(int i=1;i<=board().length;i++){
+            indexlist.add(i);
+        }
+        indexlist.forEach(System.out::println);
+        String status;
+        if(indexlist.contains(index)) {
+            status = (move(index) == 0) ? "Index is not vacant choose again" : "Index is vacant";
+        }
+        else
+            System.out.println("Invalid index");
+    }
+    public int move(int index){
+
+        int currentIndex;
+        if(currentBoard[index]==' ')
+            currentIndex = index;
+        else
+            currentIndex=0;
+        return currentIndex;
     }
 }
